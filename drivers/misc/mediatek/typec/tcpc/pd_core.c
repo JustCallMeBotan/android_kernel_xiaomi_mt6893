@@ -95,7 +95,7 @@ static inline int pd_parse_pdata_bats(
 	ret = of_property_read_u32(np, "bat,nr", &val);
 	if (ret < 0) {
 		pr_err("%s get pd bat NR fail\n", __func__);
-		pd_port->bat_nr = 0;
+		val = 0;
 		return 0;
 	}
 
@@ -149,6 +149,7 @@ static inline int pd_parse_pdata_country(
 	ret = of_property_read_u32(sub, "pd,country_code", &val);
 	if (ret < 0) {
 		pr_err("%s get country code fail\n", __func__);
+		val = 0;
 		return -ENODEV;
 	}
 
