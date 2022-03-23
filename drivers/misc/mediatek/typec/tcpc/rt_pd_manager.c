@@ -22,7 +22,14 @@
 #include <mt-plat/mtk_boot.h>
 #include <mt-plat/mtk_charger.h>
 
+#include "usb_boost.h"
+
 #define RT_PD_MANAGER_VERSION	"1.0.6_MTK"
+
+#ifdef CONFIG_OCP96011_I2C
+#include "../switch/ocp96011-i2c.h"
+extern void typec_headset_queue_work(void);
+#endif
 
 struct rt_pd_manager_data {
 	struct device *dev;
@@ -362,6 +369,8 @@ static int tcpc_typec_dr_set(const struct typec_capability *cap,
 
 	dev_info(rpmd->dev, "%s role = %d\n", __func__, role);
 
+	usb_boost();
+
 	if (role == TYPEC_HOST) {
 		if (data_role == PD_ROLE_UFP) {
 			do_swap = true;
@@ -399,6 +408,8 @@ static int tcpc_typec_pr_set(const struct typec_capability *cap,
 	bool do_swap = false;
 
 	dev_info(rpmd->dev, "%s role = %d\n", __func__, role);
+
+	usb_boost();
 
 	if (role == TYPEC_SOURCE) {
 		if (power_role == PD_ROLE_SINK) {
@@ -477,6 +488,8 @@ static int tcpc_typec_port_type_set(const struct typec_capability *cap,
 
 	dev_info(rpmd->dev, "%s type = %d, as_sink = %d\n",
 			    __func__, type, as_sink);
+
+	usb_boost();
 
 	switch (type) {
 	case TYPEC_PORT_UFP:
