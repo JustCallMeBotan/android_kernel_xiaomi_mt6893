@@ -50,3 +50,7 @@ subdir-$(CONFIG_GDB_SCRIPTS) += gdb
 
 # Let clean descend into subdirs
 subdir-	+= basic kconfig package gcc-plugins
+
+# Maintainer Tags
+export KBUILD_BUILD_HOST=MT6893_DEVS
+export KBUILD_BUILD_USER="AbzRaider"
