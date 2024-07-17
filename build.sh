@@ -18,7 +18,7 @@ echo "Kernel OUT Directory Not Found . Making Again"
 mkdir out
 fi
 
-make O=out ARCH=arm64 agate_user_defconfig
+make O=out ARCH=arm64 ares_user_defconfig
 
 PATH="${PWD}/clang/bin:${PATH}:${PWD}/clang/bin:${PATH}:${PWD}/clang/bin:${PATH}" \
 make -j$(nproc --all) O=out \
@@ -40,7 +40,7 @@ make -j$(nproc --all) O=out \
 function zupload()
 {
 rm -rf AnyKernel	
-git clone --depth=1 https://github.com/AbzRaider/AnyKernel33 -b agate AnyKernel
+git clone --depth=1 https://github.com/AbzRaider/AnyKernel33 -b ares AnyKernel
 cp out/arch/arm64/boot/Image.gz-dtb AnyKernel
 cd AnyKernel
 zip -r9 4.14.336-Test-OSS-KERNEL-AGATE-T.zip *
